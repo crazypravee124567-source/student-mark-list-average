@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Marks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2d3748;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: #edf2f7;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      color: #4a5568;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card p {
+      margin: 0;
+      color: #2d3748;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .student-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .student-list li {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      color: #2d3748;
+    }
+
+    .highlight {
+      background: #c6f6d5;
+      border-color: #68d391;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📊 Student Report</h1>
+
+    <div class="card">
+      <h3>Total Marks</h3>
+      <p id="totalMarks"></p>
+    </div>
+
+    <div class="card">
+      <h3>Class Average</h3>
+      <p id="average"></p>
+    </div>
+
+    <div class="card">
+      <h3>🏆 Highest Scorer</h3>
+      <p id="highest"></p>
+    </div>
+
+    <div class="card">
+      <h3>✅ Passed Students</h3>
+      <ul class="student-list" id="passedList"></ul>
+    </div>
+
+    <div class="card">
+      <h3>👥 All Student Names</h3>
+      <ul class="student-list" id="namesList"></ul>
+    </div>
+
+  </div>
+
+  <script>
+    let students = [
+      { name: "Praveen", marks: 85 },
+      { name: "Sanjay",  marks: 90 },
+      { name: "Vivek",   marks: 75 },
+    ];
+
+    // Total Marks
+    let totalmarks = students.reduce(function(total, student) {
+      return total + student.marks;
+    }, 0);
+    document.getElementById("totalMarks").textContent = totalmarks;
+
+    // Average
+    let average = totalmarks / students.length;
+    document.getElementById("average").textContent = average.toFixed(2);
+
+    // Highest Scorer
+    let comparemarks = students.reduce(function(highest, student) {
+      return student.marks > highest.marks ? student : highest;
+    }, students[0]);
+    document.getElementById("highest").textContent =
+      comparemarks.name + " — " + comparemarks.marks + " marks";
+
+    // Passed Students
+    let passedstudents = students.filter(function(student) {
+      return student.marks >= 50;
+    });
+    let passedList = document.getElementById("passedList");
+    passedstudents.forEach(function(student) {
+      let li = document.createElement("li");
+      li.classList.add("highlight");
+      li.innerHTML = "<span>" + student.name + "</span><span>" + student.marks + "</span>";
+      passedList.appendChild(li);
+    });
+
+    // All Names
+    let studentnames = students.map(function(student) {
+      return student.name;
+    });
+    let namesList = document.getElementById("namesList");
+    studentnames.forEach(function(name) {
+      let li = document.createElement("li");
+      li.textContent = name;
+      namesList.appendChild(li);
+    });
+  </script>
+
+</body>
+</html>

@@ -59,7 +59,7 @@ Features
  Author
 
 **Praveen**
-- GitHub: [@your-username](https://github.com/your-username)
+- GitHub: [@crazypravee124567](https://github.com/your-username)
 
 ---
 
